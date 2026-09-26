@@ -82,6 +82,14 @@ def create_app(settings=None):
     async def root():
         return {'service':'Aidlex Pro MCP','version':__version__,'endpoint':'/mcp','health':'/healthz','description':'Evidence-grounded legal/document intelligence; not legal representation.'}
 
+
+    @app.get('/.well-known/openai-apps-challenge')
+    async def openai_apps_challenge():
+        return Response(
+            content='oytnTnyka-mz1V-wo6am5rSew-E7vHLwQjna0iCbujA',
+            media_type='text/plain; charset=utf-8'
+        )
+
     @app.get('/healthz')
     async def health(): return {'status':'ok'}
 
