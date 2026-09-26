@@ -1,0 +1,1742 @@
+{
+  "tools": [
+    {
+      "name": "aidlex_server_status",
+      "description": "Read Aidlex runtime readiness, authentication mode and retrieval capabilities without exposing secrets or private case counts.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {},
+        "title": "Empty",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Aidlex Server Status",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "noauth"
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ingest_uae_legal_source",
+      "description": "CURATOR ONLY. Persist an explicitly approved source in the shared legal library. official_fetch retrieves the URL itself; other text remains unverified. Does not certify legal applicability.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Title",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "maxLength": 2048,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Url"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "maxLength": 200000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Text"
+          },
+          "jurisdiction": {
+            "default": "Unspecified",
+            "maxLength": 100,
+            "title": "Jurisdiction",
+            "type": "string"
+          },
+          "materialType": {
+            "default": "official_fetch",
+            "enum": [
+              "official_fetch",
+              "internal_guidance",
+              "user_supplied_legal_text"
+            ],
+            "title": "Materialtype",
+            "type": "string"
+          },
+          "confirmed": {
+            "default": false,
+            "title": "Confirmed",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "title": "IngestSource",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Ingest Uae Legal Source",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:curate"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:curate"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "ingest_case_document",
+      "description": "Persist extracted document text or numbered pages in the authenticated user’s case. Requires confirmed=true after explicit user consent. No attachment IDs, secrets or remote file URLs.",
+      "inputSchema": {
+        "$defs": {
+          "Page": {
+            "additionalProperties": false,
+            "properties": {
+              "page_number": {
+                "maximum": 100000,
+                "minimum": 1,
+                "title": "Page Number",
+                "type": "integer"
+              },
+              "text": {
+                "maxLength": 200000,
+                "minLength": 1,
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "page_number",
+              "text"
+            ],
+            "title": "Page",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "caseId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_:/.-]+$",
+            "title": "Caseid",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Title",
+            "type": "string"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "maxLength": 200000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Text"
+          },
+          "pages": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/$defs/Page"
+                },
+                "maxItems": 500,
+                "minItems": 1,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Pages"
+          },
+          "documentType": {
+            "default": "user_document",
+            "maxLength": 100,
+            "title": "Documenttype",
+            "type": "string"
+          },
+          "confirmed": {
+            "default": false,
+            "title": "Confirmed",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "caseId",
+          "title"
+        ],
+        "title": "IngestDocument",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Ingest Case Document",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:write"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:write"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "rag_search",
+      "description": "Retrieve cited official/internal source text, case documents and confirmed memory. Public callers can search only the non-private library. verifiedOnly means fresh official-origin retrieval, NOT verified legal applicability.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "query": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Query",
+            "type": "string"
+          },
+          "caseId": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9_:/.-]+$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Caseid"
+          },
+          "includeLegalSources": {
+            "default": true,
+            "title": "Includelegalsources",
+            "type": "boolean"
+          },
+          "includeCaseDocs": {
+            "default": true,
+            "title": "Includecasedocs",
+            "type": "boolean"
+          },
+          "includeMemory": {
+            "default": true,
+            "title": "Includememory",
+            "type": "boolean"
+          },
+          "jurisdiction": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Jurisdiction"
+          },
+          "verifiedOnly": {
+            "default": false,
+            "title": "Verifiedonly",
+            "type": "boolean"
+          },
+          "topK": {
+            "default": 12,
+            "maximum": 40,
+            "minimum": 1,
+            "title": "Topk",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "SearchInput",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Rag Search",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "noauth"
+        },
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:read"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          },
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:read"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "get_case_memory",
+      "description": "Read the authenticated user’s current case memory and revision before any update. Memory is context, not evidence.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "caseId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_:/.-]+$",
+            "title": "Caseid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "caseId"
+        ],
+        "title": "CaseInput",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Get Case Memory",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:read"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:read"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "update_case_memory",
+      "description": "REPLACE the confirmed case-memory snapshot using expectedRevision for conflict detection. Preserve still-valid items, remove superseded facts, and require explicit user consent. Do not store speculation.",
+      "inputSchema": {
+        "$defs": {
+          "MemoryItem": {
+            "additionalProperties": false,
+            "properties": {
+              "scope": {
+                "enum": [
+                  "case",
+                  "user",
+                  "module"
+                ],
+                "title": "Scope",
+                "type": "string"
+              },
+              "memory_type": {
+                "maxLength": 100,
+                "minLength": 1,
+                "title": "Memory Type",
+                "type": "string"
+              },
+              "memory_text": {
+                "maxLength": 5000,
+                "minLength": 1,
+                "title": "Memory Text",
+                "type": "string"
+              },
+              "memory_json": {
+                "anyOf": [
+                  {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Memory Json"
+              },
+              "importance": {
+                "maximum": 5,
+                "minimum": 1,
+                "title": "Importance",
+                "type": "integer"
+              },
+              "confidence_score": {
+                "maximum": 1,
+                "minimum": 0,
+                "title": "Confidence Score",
+                "type": "number"
+              }
+            },
+            "required": [
+              "scope",
+              "memory_type",
+              "memory_text",
+              "importance",
+              "confidence_score"
+            ],
+            "title": "MemoryItem",
+            "type": "object"
+          },
+          "MemoryPayload": {
+            "additionalProperties": false,
+            "properties": {
+              "memories": {
+                "items": {
+                  "$ref": "#/$defs/MemoryItem"
+                },
+                "maxItems": 200,
+                "title": "Memories",
+                "type": "array"
+              }
+            },
+            "required": [
+              "memories"
+            ],
+            "title": "MemoryPayload",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "caseId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_:/.-]+$",
+            "title": "Caseid",
+            "type": "string"
+          },
+          "memory": {
+            "$ref": "#/$defs/MemoryPayload"
+          },
+          "expectedRevision": {
+            "minimum": 0,
+            "title": "Expectedrevision",
+            "type": "integer"
+          },
+          "confirmed": {
+            "default": false,
+            "title": "Confirmed",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "caseId",
+          "memory",
+          "expectedRevision"
+        ],
+        "title": "UpdateMemory",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Update Case Memory",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:write"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:write"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "build_evidence_timeline",
+      "description": "Build a cited timeline from ingested pages. local extracts explicit date mentions only; server uses the configured paid model for structured extraction, with exact-quote validation. Does not persist the timeline.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "caseId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_:/.-]+$",
+            "title": "Caseid",
+            "type": "string"
+          },
+          "execution": {
+            "default": "local",
+            "enum": [
+              "local",
+              "server"
+            ],
+            "title": "Execution",
+            "type": "string"
+          },
+          "language": {
+            "default": "en",
+            "enum": [
+              "en",
+              "ar"
+            ],
+            "title": "Language",
+            "type": "string"
+          }
+        },
+        "required": [
+          "caseId"
+        ],
+        "title": "TimelineInput",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Build Evidence Timeline",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:read"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:read"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "create_source_citation_pack",
+      "description": "Build a source pack distinguishing official-origin law text, user-document facts, memory and internal material. Claims are not automatically legally validated.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "query": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Query",
+            "type": "string"
+          },
+          "caseId": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9_:/.-]+$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Caseid"
+          },
+          "includeLegalSources": {
+            "default": true,
+            "title": "Includelegalsources",
+            "type": "boolean"
+          },
+          "includeCaseDocs": {
+            "default": true,
+            "title": "Includecasedocs",
+            "type": "boolean"
+          },
+          "includeMemory": {
+            "default": true,
+            "title": "Includememory",
+            "type": "boolean"
+          },
+          "jurisdiction": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Jurisdiction"
+          },
+          "verifiedOnly": {
+            "default": false,
+            "title": "Verifiedonly",
+            "type": "boolean"
+          },
+          "topK": {
+            "default": 12,
+            "maximum": 40,
+            "minimum": 1,
+            "title": "Topk",
+            "type": "integer"
+          },
+          "claimsToCheck": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 50,
+            "title": "Claimstocheck",
+            "type": "array"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "CitationInput",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Create Source Citation Pack",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:read"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:read"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "create_draft_handoff_pack",
+      "description": "Build a drafting handoff only from the user-approved exact DraftPlan and DiscussionPack with no missing fields or unverified legal sources. This does not generate, sign, file or persist a final court document.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "caseId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_:/.-]+$",
+            "title": "Caseid",
+            "type": "string"
+          },
+          "plan": {
+            "additionalProperties": true,
+            "title": "Plan",
+            "type": "object"
+          },
+          "discussion": {
+            "additionalProperties": true,
+            "title": "Discussion",
+            "type": "object"
+          },
+          "confirmed": {
+            "default": false,
+            "title": "Confirmed",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "caseId",
+          "plan",
+          "discussion"
+        ],
+        "title": "HandoffInput",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Create Draft Handoff Pack",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:read"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:read"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "get_aidlex_prompt_template",
+      "description": "Read evidence-grounded Aidlex module instructions: analysis, strategy, Arabic drafting, judge-style review, source checks, timelines and memory. No private data or model calls.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "module": {
+            "default": "strategic_engine",
+            "enum": [
+              "core",
+              "legal_analysis",
+              "case_discussion",
+              "instant_chat",
+              "legal_drafting",
+              "final_review",
+              "judge_review",
+              "evidence_timeline",
+              "case_memory",
+              "source_citation",
+              "rag",
+              "strategic_engine"
+            ],
+            "title": "Module",
+            "type": "string"
+          },
+          "language": {
+            "default": "en",
+            "enum": [
+              "en",
+              "ar"
+            ],
+            "title": "Language",
+            "type": "string"
+          }
+        },
+        "title": "PromptInput",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Get Aidlex Prompt Template",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "noauth"
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          }
+        ]
+      }
+    },
+    {
+      "name": "get_source_registry",
+      "description": "Read the bundled official UAE-source research directory. It is a map, not a verified legal corpus or proof that any source is current.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {},
+        "title": "Empty",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Get Source Registry",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "noauth"
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          }
+        ]
+      }
+    },
+    {
+      "name": "analyze_case",
+      "description": "Prepare an evidence-grounded work package for ChatGPT (host), or run paid three-pass model analysis, opposing-case review and synthesis (server). Not a licensed advocate or prediction guarantee.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "caseId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_:/.-]+$",
+            "title": "Caseid",
+            "type": "string"
+          },
+          "question": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Question",
+            "type": "string"
+          },
+          "mode": {
+            "default": "strategy",
+            "enum": [
+              "analysis",
+              "strategy",
+              "judge_review"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "language": {
+            "default": "en",
+            "enum": [
+              "en",
+              "ar"
+            ],
+            "title": "Language",
+            "type": "string"
+          },
+          "execution": {
+            "default": "host",
+            "enum": [
+              "host",
+              "server"
+            ],
+            "title": "Execution",
+            "type": "string"
+          }
+        },
+        "required": [
+          "caseId",
+          "question"
+        ],
+        "title": "AnalyzeInput",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Analyze Case",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:read"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:read"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "review_legal_draft",
+      "description": "Compare a supplied draft against private case evidence using host execution or paid server analysis. Check relief, numbers, dates, contradictions, source support and procedural risks; no filing occurs.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "caseId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_:/.-]+$",
+            "title": "Caseid",
+            "type": "string"
+          },
+          "draft": {
+            "maxLength": 40000,
+            "minLength": 1,
+            "title": "Draft",
+            "type": "string"
+          },
+          "language": {
+            "default": "en",
+            "enum": [
+              "en",
+              "ar"
+            ],
+            "title": "Language",
+            "type": "string"
+          },
+          "execution": {
+            "default": "host",
+            "enum": [
+              "host",
+              "server"
+            ],
+            "title": "Execution",
+            "type": "string"
+          }
+        },
+        "required": [
+          "caseId",
+          "draft"
+        ],
+        "title": "ReviewInput",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Review Legal Draft",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:read"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:read"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "calculate_case_amounts",
+      "description": "Reconcile AED charges, payments and credits using exact Decimal arithmetic. Does not prove payment attribution, calculate legal interest or determine enforceable debt.",
+      "inputSchema": {
+        "$defs": {
+          "MoneyItem": {
+            "additionalProperties": false,
+            "properties": {
+              "description": {
+                "maxLength": 500,
+                "minLength": 1,
+                "title": "Description",
+                "type": "string"
+              },
+              "amount": {
+                "pattern": "^\\d{1,15}(\\.\\d{1,2})?$",
+                "title": "Amount",
+                "type": "string"
+              },
+              "kind": {
+                "enum": [
+                  "charge",
+                  "payment",
+                  "credit"
+                ],
+                "title": "Kind",
+                "type": "string"
+              },
+              "source_ref": {
+                "anyOf": [
+                  {
+                    "maxLength": 100,
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Source Ref"
+              }
+            },
+            "required": [
+              "description",
+              "amount",
+              "kind"
+            ],
+            "title": "MoneyItem",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "entries": {
+            "items": {
+              "$ref": "#/$defs/MoneyItem"
+            },
+            "maxItems": 1000,
+            "minItems": 1,
+            "title": "Entries",
+            "type": "array"
+          },
+          "currency": {
+            "const": "AED",
+            "default": "AED",
+            "title": "Currency",
+            "type": "string"
+          }
+        },
+        "required": [
+          "entries"
+        ],
+        "title": "MoneyInput",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Calculate Case Amounts",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:read"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:read"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "fetch_case_document",
+      "description": "Fetch exact numbered pages from an accessible private case document, with pagination. Never retrieves another user’s documents.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "documentId": {
+            "maxLength": 40,
+            "minLength": 1,
+            "pattern": "^[a-f0-9]+$",
+            "title": "Documentid",
+            "type": "string"
+          },
+          "startPage": {
+            "default": 1,
+            "minimum": 1,
+            "title": "Startpage",
+            "type": "integer"
+          },
+          "pageCount": {
+            "default": 10,
+            "maximum": 30,
+            "minimum": 1,
+            "title": "Pagecount",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "documentId"
+        ],
+        "title": "FetchDocument",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Fetch Case Document",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:read"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:read"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "list_cases",
+      "description": "List only the authenticated user’s cases, with offset pagination.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "default": 50,
+            "maximum": 100,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "default": 0,
+            "maximum": 100000,
+            "minimum": 0,
+            "title": "Offset",
+            "type": "integer"
+          }
+        },
+        "title": "ListCases",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "List Cases",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:read"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:read"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "export_case_data",
+      "description": "Read an export of the authenticated user’s case documents and memory. Large cases must be fetched document-by-document; no public download links are generated.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "caseId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_:/.-]+$",
+            "title": "Caseid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "caseId"
+        ],
+        "title": "CaseInput",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Export Case Data",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:read"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:read"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "delete_case_data",
+      "description": "PERMANENTLY DELETE the authenticated user’s case documents, chunks, memory and case audit entries. Requires explicit consent and an exact repeated case ID. Backups are subject to operator retention.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "caseId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_:/.-]+$",
+            "title": "Caseid",
+            "type": "string"
+          },
+          "confirmCaseId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_:/.-]+$",
+            "title": "Confirmcaseid",
+            "type": "string"
+          },
+          "confirmed": {
+            "default": false,
+            "title": "Confirmed",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "caseId",
+          "confirmCaseId"
+        ],
+        "title": "DeleteCase",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Aidlex MCP Tool Result",
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {},
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "title": "Delete Case Data",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "aidlex:delete"
+          ]
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "oauth2",
+            "scopes": [
+              "aidlex:delete"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

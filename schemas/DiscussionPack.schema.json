@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aidlex DiscussionPack",
+  "type": "object",
+  "required": [
+    "user_role",
+    "approved_strategy",
+    "arguments_to_include",
+    "arguments_to_avoid",
+    "drafting_requirements"
+  ],
+  "properties": {
+    "user_role": {
+      "type": "string"
+    },
+    "approved_strategy": {
+      "type": "string"
+    },
+    "arguments_to_include": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "arguments_to_avoid": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "drafting_requirements": {
+      "type": "object"
+    }
+  }
+}

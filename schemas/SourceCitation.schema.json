@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SourceCitationPack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["citations", "warnings"],
+  "properties": {
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "label", "source_kind", "source_id", "excerpt", "verification_status"],
+        "properties": {
+          "key": { "type": "string" },
+          "label": { "type": "string" },
+          "source_kind": { "type": "string" },
+          "source_id": { "type": ["string", "null"] },
+          "excerpt": { "type": "string" },
+          "verification_status": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "warnings": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.db
+*.db-wal
+*.db-shm
+data/
+*.log
+.do/app.generated.yaml
+*.secret

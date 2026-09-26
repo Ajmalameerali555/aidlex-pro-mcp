@@ -1,0 +1,88 @@
+{
+  "official_sources": [
+    {
+      "name": "UAE Legislation Portal",
+      "url": "https://uaelegislation.gov.ae",
+      "jurisdiction": "UAE Federal",
+      "use": "Federal laws, decree-laws, cabinet resolutions"
+    },
+    {
+      "name": "Ministry of Justice",
+      "url": "https://www.moj.gov.ae",
+      "jurisdiction": "UAE Federal",
+      "use": "Court services, federal legal references"
+    },
+    {
+      "name": "Abu Dhabi Judicial Department",
+      "url": "https://www.adjd.gov.ae",
+      "jurisdiction": "Abu Dhabi",
+      "use": "Abu Dhabi courts, services, judgments/principles where available"
+    },
+    {
+      "name": "Dubai Courts",
+      "url": "https://www.dc.gov.ae",
+      "jurisdiction": "Dubai",
+      "use": "Dubai courts and execution services"
+    },
+    {
+      "name": "Dubai Legal Affairs Department",
+      "url": "https://legal.dubai.gov.ae",
+      "jurisdiction": "Dubai",
+      "use": "Legal profession and legal consultancy framework"
+    },
+    {
+      "name": "DIFC Courts",
+      "url": "https://www.difccourts.ae",
+      "jurisdiction": "DIFC",
+      "use": "DIFC court rules and judgments"
+    },
+    {
+      "name": "ADGM Courts",
+      "url": "https://www.adgm.com/adgm-courts",
+      "jurisdiction": "ADGM",
+      "use": "ADGM court rules and judgments"
+    },
+    {
+      "name": "MOHRE",
+      "url": "https://www.mohre.gov.ae",
+      "jurisdiction": "UAE Labour",
+      "use": "Labour law services and employment regulations"
+    },
+    {
+      "name": "ADGM Legal Framework",
+      "url": "https://www.adgm.com/legal-framework",
+      "jurisdiction": "ADGM",
+      "use": "ADGM regulations, court procedure, rules"
+    },
+    {
+      "name": "DIFC Laws and Regulations",
+      "url": "https://www.difc.ae/business/laws-regulations/",
+      "jurisdiction": "DIFC",
+      "use": "DIFC laws, regulations, common-law free zone framework"
+    },
+    {
+      "name": "DIAC",
+      "url": "https://www.diac.com",
+      "jurisdiction": "Arbitration",
+      "use": "DIAC arbitration rules and services"
+    },
+    {
+      "name": "Central Bank of the UAE",
+      "url": "https://www.centralbank.ae",
+      "jurisdiction": "UAE Banking/Finance",
+      "use": "Banking, insurance, payment regulations"
+    },
+    {
+      "name": "VARA",
+      "url": "https://www.vara.ae",
+      "jurisdiction": "Dubai Virtual Assets",
+      "use": "Virtual assets regulations"
+    }
+  ],
+  "rule": "Legal citations must be verified against official or trusted legal databases before being presented as exact law/article references.",
+  "verification_policy": {
+    "exact_article_numbers": "Only allowed when verified from official legislation/court/free zone source or user-provided legal document.",
+    "practice_guidance": "Must be described as practical guidance, not guaranteed law.",
+    "citations_in_drafts": "Avoid exact article numbers unless source is verified and relevant."
+  }
+}

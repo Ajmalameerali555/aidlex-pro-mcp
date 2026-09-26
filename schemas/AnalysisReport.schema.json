@@ -1,0 +1,232 @@
+{
+  "$defs": {
+    "Finding": {
+      "additionalProperties": false,
+      "properties": {
+        "statement": {
+          "title": "Statement",
+          "type": "string"
+        },
+        "classification": {
+          "enum": [
+            "document_fact",
+            "user_claim",
+            "memory",
+            "inference",
+            "verified_source_text",
+            "unconfirmed_legal_point"
+          ],
+          "title": "Classification",
+          "type": "string"
+        },
+        "source_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Refs",
+          "type": "array"
+        },
+        "verification_needed": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verification Needed"
+        }
+      },
+      "required": [
+        "statement",
+        "classification",
+        "source_refs"
+      ],
+      "title": "Finding",
+      "type": "object"
+    },
+    "Issue": {
+      "additionalProperties": false,
+      "properties": {
+        "issue": {
+          "title": "Issue",
+          "type": "string"
+        },
+        "user_position": {
+          "title": "User Position",
+          "type": "string"
+        },
+        "opposing_position": {
+          "title": "Opposing Position",
+          "type": "string"
+        },
+        "evidence_assessment": {
+          "title": "Evidence Assessment",
+          "type": "string"
+        },
+        "source_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Refs",
+          "type": "array"
+        },
+        "verification_needed": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Verification Needed",
+          "type": "array"
+        }
+      },
+      "required": [
+        "issue",
+        "user_position",
+        "opposing_position",
+        "evidence_assessment",
+        "source_refs",
+        "verification_needed"
+      ],
+      "title": "Issue",
+      "type": "object"
+    },
+    "Route": {
+      "additionalProperties": false,
+      "properties": {
+        "route": {
+          "title": "Route",
+          "type": "string"
+        },
+        "benefit": {
+          "title": "Benefit",
+          "type": "string"
+        },
+        "downside": {
+          "title": "Downside",
+          "type": "string"
+        },
+        "required_evidence": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Evidence",
+          "type": "array"
+        },
+        "procedural_checks": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Procedural Checks",
+          "type": "array"
+        },
+        "source_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "route",
+        "benefit",
+        "downside",
+        "required_evidence",
+        "procedural_checks",
+        "source_refs"
+      ],
+      "title": "Route",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "summary": {
+      "title": "Summary",
+      "type": "string"
+    },
+    "jurisdiction_assessment": {
+      "title": "Jurisdiction Assessment",
+      "type": "string"
+    },
+    "material_findings": {
+      "items": {
+        "$ref": "#/$defs/Finding"
+      },
+      "title": "Material Findings",
+      "type": "array"
+    },
+    "issues": {
+      "items": {
+        "$ref": "#/$defs/Issue"
+      },
+      "title": "Issues",
+      "type": "array"
+    },
+    "strategic_options": {
+      "items": {
+        "$ref": "#/$defs/Route"
+      },
+      "title": "Strategic Options",
+      "type": "array"
+    },
+    "recommended_route": {
+      "title": "Recommended Route",
+      "type": "string"
+    },
+    "fallback_route": {
+      "title": "Fallback Route",
+      "type": "string"
+    },
+    "adverse_scenario": {
+      "title": "Adverse Scenario",
+      "type": "string"
+    },
+    "missing_information": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Information",
+      "type": "array"
+    },
+    "immediate_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Immediate Actions",
+      "type": "array"
+    },
+    "unverified_legal_points": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unverified Legal Points",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "summary",
+    "jurisdiction_assessment",
+    "material_findings",
+    "issues",
+    "strategic_options",
+    "recommended_route",
+    "fallback_route",
+    "adverse_scenario",
+    "missing_information",
+    "immediate_actions",
+    "unverified_legal_points",
+    "limitations"
+  ],
+  "title": "AnalysisReport",
+  "type": "object"
+}

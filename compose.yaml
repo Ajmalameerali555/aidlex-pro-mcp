@@ -1,0 +1,21 @@
+services:
+  aidlex:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      PORT: "8000"
+    ports:
+      - "127.0.0.1:${PORT:-8000}:8000"
+    volumes:
+      - aidlex_data:/app/data
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 128
+volumes:
+  aidlex_data:

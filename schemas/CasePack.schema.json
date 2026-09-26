@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aidlex CasePack",
+  "type": "object",
+  "required": [
+    "case_id",
+    "documents",
+    "facts",
+    "allegations_or_claims",
+    "evidence_map",
+    "missing_information",
+    "risk_flags"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "facts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allegations_or_claims": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_map": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "missing_information": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risk_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

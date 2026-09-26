@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AidlexDraftPlan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "document_type",
+    "output_language",
+    "addressee",
+    "short_confirmation_summary",
+    "proposed_structure",
+    "facts_to_include",
+    "arguments_to_include",
+    "arguments_to_avoid",
+    "legal_sources_to_verify",
+    "missing_critical_fields",
+    "formatting_rules",
+    "ready_for_user_confirmation"
+  ],
+  "properties": {
+    "document_type": {
+      "type": "string"
+    },
+    "output_language": {
+      "type": "string"
+    },
+    "addressee": {
+      "type": "string"
+    },
+    "short_confirmation_summary": {
+      "type": "string"
+    },
+    "proposed_structure": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "facts_to_include": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "arguments_to_include": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "arguments_to_avoid": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "legal_sources_to_verify": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missing_critical_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "formatting_rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ready_for_user_confirmation": {
+      "type": "boolean"
+    }
+  }
+}

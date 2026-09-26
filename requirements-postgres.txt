@@ -1,0 +1,2 @@
+# Required for PostgreSQL/Supabase; live-driver tests require a real database.
+psycopg[binary]>=3.2,<4

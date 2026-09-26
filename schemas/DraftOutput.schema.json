@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aidlex Draft Output",
+  "type": "object",
+  "required": [
+    "document_type",
+    "language",
+    "draft_text",
+    "missing_required_information",
+    "risk_notes"
+  ],
+  "properties": {
+    "document_type": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "draft_text": {
+      "type": "string"
+    },
+    "missing_required_information": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risk_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

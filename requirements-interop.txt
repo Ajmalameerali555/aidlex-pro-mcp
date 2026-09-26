@@ -1,0 +1,2 @@
+# Optional official SDK client for post-deployment interoperability checks.
+mcp>=1,<2

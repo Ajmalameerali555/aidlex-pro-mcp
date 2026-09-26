@@ -1,0 +1,155 @@
+{
+  "reused_files": [
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "prompts/00_core_system.md",
+      "destination": "prompts/00_core_system.md",
+      "sha256": "9b09037e3fabb8b1cded2f7a18a38464680b9bdba07b8e92b5568830d13ff5b0"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "prompts/45_final_review_judge_mode.md",
+      "destination": "prompts/45_final_review_judge_mode.md",
+      "sha256": "0f97db87296cc66b4eb104ab8bd40dcd3768ee69f0a14ad3f4f067b8b5214571"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "prompts/10_legal_analysis.md",
+      "destination": "prompts/10_legal_analysis.md",
+      "sha256": "c08806c0b0f53aa6625aeaa016aedbaf142979de8cdd47e1f8f341f6547054bd"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "prompts/55_evidence_timeline_engine.md",
+      "destination": "prompts/55_evidence_timeline_engine.md",
+      "sha256": "20747291ae24ed04655fd716f6231a58235a615d928fe6ea7ddaf33cff074356"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "prompts/65_source_citation_engine.md",
+      "destination": "prompts/65_source_citation_engine.md",
+      "sha256": "f4352e870a869631353441dc9263456b61b213cdc70fc423a60c36774f686e72"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "prompts/15_instant_chat.md",
+      "destination": "prompts/15_instant_chat.md",
+      "sha256": "00896e1f043de9950963b7f83cce13b91cf38d7cff63e0bb57b686e67e2faeaa"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "prompts/20_case_discussion.md",
+      "destination": "prompts/20_case_discussion.md",
+      "sha256": "3b49155a31b18884d94bd229856c04d65b0f77fad615fb51863cf64923757c68"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "prompts/35_arabic_docx_quality.md",
+      "destination": "prompts/35_arabic_docx_quality.md",
+      "sha256": "e996be04c60e61fb20c02a81bea9c13965301352c6017370881b612757f72df5"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "prompts/30_legal_drafting_uae_arabic.md",
+      "destination": "prompts/30_legal_drafting_uae_arabic.md",
+      "sha256": "f69bab9ddce0e4bd92bf8c797f7c0cf5eb43f09fc1b88b555dee730a68709e9a"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "prompts/40_final_review.md",
+      "destination": "prompts/40_final_review.md",
+      "sha256": "292c1e80460eb474551d860a7b10c1fbb562380b2787f28f837df0dac279129e"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "prompts/05_language_contract.md",
+      "destination": "prompts/05_language_contract.md",
+      "sha256": "492a4bd0568c2d3e616a7ee3ab2aeca4e20b76e0e624b4f020ee479fa1c0a204"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "prompts/60_case_memory.md",
+      "destination": "prompts/60_case_memory.md",
+      "sha256": "0db2f6bbf7119383436db707671273d263c4f41e62c69215967c97d3ba6b6eac"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "prompts/50_rag_retrieval.md",
+      "destination": "prompts/50_rag_retrieval.md",
+      "sha256": "461eefd30694531fdc67e36cb8d0c0707bc7ec5ae7cc4111c711e918f7443a49"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "knowledge/ABU_DHABI_ARCHITECTED_KNOWLEDGE_BASE.md",
+      "destination": "knowledge/ABU_DHABI_ARCHITECTED_KNOWLEDGE_BASE.md",
+      "sha256": "1017dbb3c454f3b67882d742319655b1f4ef52c18d92138ccc25b98be2b5a087"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "knowledge/legal_brain_competency_matrix.yaml",
+      "destination": "knowledge/legal_brain_competency_matrix.yaml",
+      "sha256": "04e740301c2373ffcc6c807beca2f9196c19208189a400c2d8407ca565b96d3f"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "knowledge/uae_official_source_registry.json",
+      "destination": "knowledge/uae_official_source_registry.json",
+      "sha256": "a15f9eb1f8eb6118cb9c16f1233e4c44caa2b63a054e4723faa338416fd95db2"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "schemas/EvidenceTimeline.schema.json",
+      "destination": "schemas/EvidenceTimeline.schema.json",
+      "sha256": "d31ca6df8d812cb3a70d90c0095367f461cec2737f065134ce5f8e4e6955a033"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "schemas/DiscussionPack.schema.json",
+      "destination": "schemas/DiscussionPack.schema.json",
+      "sha256": "a699556aace2104ef9f84fddefdf3aea35a0db0e0daff3dbc46d2d6daab56718"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "schemas/CaseMemory.schema.json",
+      "destination": "schemas/CaseMemory.schema.json",
+      "sha256": "5ada65eeb300f58c69143c11b4bbe522d5125f61857b773ba9392bfbb8ed5f07"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "schemas/CasePack.schema.json",
+      "destination": "schemas/CasePack.schema.json",
+      "sha256": "efc41cbd53603f944ae8dc94099d8178d8fca778444eeae59a3e861053c3fa2b"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "schemas/DraftOutput.schema.json",
+      "destination": "schemas/DraftOutput.schema.json",
+      "sha256": "17093b6561889b54dff6bbeb11978e124186ba98f4cee791e90f24405ae88c8e"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "schemas/RagSearchResult.schema.json",
+      "destination": "schemas/RagSearchResult.schema.json",
+      "sha256": "ecb528a70a9bcc55eaa569a31a38e55d6a8f743eeb6e4f87f026e6aace20b0cc"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "schemas/DraftPlan.schema.json",
+      "destination": "schemas/DraftPlan.schema.json",
+      "sha256": "2c12067adc9f97496309943862729f11c7188701ff533a8da3ad8a8fa7dc57d4"
+    },
+    {
+      "source_archive": "AidlexPro_RAG_Memory_UpgradePack(1).zip",
+      "source_path": "schemas/SourceCitation.schema.json",
+      "destination": "schemas/SourceCitation.schema.json",
+      "sha256": "074b13b56b215920aadc3b8768c2550638c1afd33753877357e770a659665078"
+    }
+  ],
+  "excluded": [
+    "Private legal analysis reports: not a shared knowledge corpus",
+    "App Store screenshot assets: no server purpose",
+    "Mobile app credentials and environment files",
+    "Duplicate/superseded core prompts; only RAG pack prompt versions reused"
+  ],
+  "migration_note": "Standalone MCP service. Original mobile app and existing Supabase tables are not modified. Knowledge is internal issue-spotting material, not verified law."
+}

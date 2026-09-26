@@ -1,0 +1,74 @@
+[
+  {
+    "profile": "public",
+    "result": {
+      "initialize": "PASS",
+      "protocol": "2025-11-25",
+      "tools": 4,
+      "tool_names": [
+        "aidlex_server_status",
+        "rag_search",
+        "get_aidlex_prompt_template",
+        "get_source_registry"
+      ],
+      "server_status": {
+        "product": "Aidlex Pro MCP",
+        "version": "1.0.0",
+        "transport": "stateless Streamable HTTP (JSON responses)",
+        "auth_mode": "public",
+        "storage": "sqlite",
+        "server_ai_configured": false,
+        "retrieval": "arabic_bm25",
+        "official_corpus": "No complete legal corpus is bundled. Registry plus explicitly ingested sources only.",
+        "default_analysis_execution": "host",
+        "privacy": "Case ownership comes only from authenticated identity."
+      },
+      "writes_performed": false
+    },
+    "process": "uvicorn over loopback TCP",
+    "external_services_used": false
+  },
+  {
+    "profile": "bearer",
+    "result": {
+      "initialize": "PASS",
+      "protocol": "2025-11-25",
+      "tools": 18,
+      "tool_names": [
+        "aidlex_server_status",
+        "ingest_uae_legal_source",
+        "ingest_case_document",
+        "rag_search",
+        "get_case_memory",
+        "update_case_memory",
+        "build_evidence_timeline",
+        "create_source_citation_pack",
+        "create_draft_handoff_pack",
+        "get_aidlex_prompt_template",
+        "get_source_registry",
+        "analyze_case",
+        "review_legal_draft",
+        "calculate_case_amounts",
+        "fetch_case_document",
+        "list_cases",
+        "export_case_data",
+        "delete_case_data"
+      ],
+      "server_status": {
+        "product": "Aidlex Pro MCP",
+        "version": "1.0.0",
+        "transport": "stateless Streamable HTTP (JSON responses)",
+        "auth_mode": "bearer",
+        "storage": "sqlite",
+        "server_ai_configured": false,
+        "retrieval": "arabic_bm25",
+        "official_corpus": "No complete legal corpus is bundled. Registry plus explicitly ingested sources only.",
+        "default_analysis_execution": "host",
+        "privacy": "Case ownership comes only from authenticated identity."
+      },
+      "writes_performed": false
+    },
+    "process": "uvicorn over loopback TCP",
+    "external_services_used": false
+  }
+]

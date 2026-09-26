@@ -1,0 +1,4 @@
+{$AIDLEX_DOMAIN} {
+    tls {$AIDLEX_ACME_EMAIL}
+    reverse_proxy aidlex:8000
+}

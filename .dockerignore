@@ -1,0 +1,15 @@
+.git
+.env
+.env.*
+!.env.example
+*.db
+*.db-shm
+*.db-wal
+.venv
+__pycache__
+.pytest_cache
+data
+*.log
+*.zip
+.do/app.generated.yaml
+build

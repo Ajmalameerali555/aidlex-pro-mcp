@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RagSearchResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["citation_pack", "results", "counts"],
+  "properties": {
+    "citation_pack": { "type": "array", "items": { "type": "object" } },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["legal", "case_documents", "memory"],
+      "properties": {
+        "legal": { "type": "integer" },
+        "case_documents": { "type": "integer" },
+        "memory": { "type": "integer" }
+      }
+    },
+    "results": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["legal_sources", "case_documents", "memories"],
+      "properties": {
+        "legal_sources": { "type": "array", "items": { "type": "object" } },
+        "case_documents": { "type": "array", "items": { "type": "object" } },
+        "memories": { "type": "array", "items": { "type": "object" } }
+      }
+    }
+  }
+}

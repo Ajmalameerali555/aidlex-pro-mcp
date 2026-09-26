@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvidenceTimelineOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["claims", "evidence_items", "timeline_events", "missing_information", "risk_notes"],
+  "properties": {
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "claim_text", "claim_type", "party_position", "risk_level"],
+        "properties": {
+          "title": { "type": "string" },
+          "claim_text": { "type": "string" },
+          "claim_type": { "type": "string" },
+          "party_position": { "type": "string" },
+          "risk_level": { "type": "string" }
+        }
+      }
+    },
+    "evidence_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "fact_text", "evidence_type", "party", "page_number", "supports_user", "confidence_score"],
+        "properties": {
+          "title": { "type": "string" },
+          "fact_text": { "type": "string" },
+          "evidence_type": { "type": "string" },
+          "party": { "type": "string" },
+          "page_number": { "type": ["integer", "null"] },
+          "date_found": { "type": ["string", "null"] },
+          "amount": { "type": ["number", "null"] },
+          "currency": { "type": ["string", "null"] },
+          "supports_user": { "type": ["boolean", "null"] },
+          "confidence_score": { "type": "number" }
+        }
+      }
+    },
+    "timeline_events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "description", "event_type", "event_date", "date_precision", "importance", "confidence_score"],
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "event_type": { "type": "string" },
+          "event_date": { "type": ["string", "null"] },
+          "date_precision": { "type": "string", "enum": ["exact", "month", "year", "approx", "unknown"] },
+          "party": { "type": ["string", "null"] },
+          "importance": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+          "disputed": { "type": "boolean" },
+          "confidence_score": { "type": "number" }
+        }
+      }
+    },
+    "missing_information": { "type": "array", "items": { "type": "string" } },
+    "risk_notes": { "type": "array", "items": { "type": "string" } }
+  }
+}

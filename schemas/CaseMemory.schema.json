@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CaseMemoryExtraction",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["memories"],
+  "properties": {
+    "memories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["scope", "memory_type", "memory_text", "importance", "confidence_score"],
+        "properties": {
+          "scope": { "type": "string", "enum": ["case", "user", "module"] },
+          "memory_type": { "type": "string" },
+          "memory_text": { "type": "string" },
+          "memory_json": { "type": "object" },
+          "importance": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "confidence_score": { "type": "number" }
+        }
+      }
+    }
+  }
+}
