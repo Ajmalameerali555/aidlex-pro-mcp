@@ -20,7 +20,7 @@ TOOLS=[
     Tool('aidlex_server_status',m.Empty,'Read Aidlex runtime readiness, authentication mode and retrieval capabilities without exposing secrets or private case counts.',public=True),
     Tool('ingest_uae_legal_source',m.IngestSource,'CURATOR ONLY. Persist an explicitly approved source in the shared legal library. official_fetch retrieves the URL itself; other text remains unverified. Does not certify legal applicability.',('aidlex:curate',),write=True,external=True),
     Tool('ingest_case_document',m.IngestDocument,'Persist extracted document text or numbered pages in the authenticated user’s case. Requires confirmed=true after explicit user consent. No attachment IDs, secrets or remote file URLs.',('aidlex:write',),write=True),
-    Tool('rag_search',m.SearchInput,'Retrieve cited official/internal source text, case documents and confirmed memory. Public callers can search only the non-private library. verifiedOnly means fresh official-origin retrieval, NOT verified legal applicability.',public=True),
+    Tool('rag_search',m.SearchInput,'Search the public Aidlex UAE legal knowledge library and return relevant source-backed excerpts. Public access does not include private case files, private memory, or live internet retrieval.',public=True),
     Tool('get_case_memory',m.CaseInput,'Read the authenticated user’s current case memory and revision before any update. Memory is context, not evidence.',('aidlex:read',)),
     Tool('update_case_memory',m.UpdateMemory,'REPLACE the confirmed case-memory snapshot using expectedRevision for conflict detection. Preserve still-valid items, remove superseded facts, and require explicit user consent. Do not store speculation.',('aidlex:write',),write=True,destructive=True,idempotent=False),
     Tool('build_evidence_timeline',m.TimelineInput,'Build a cited timeline from ingested pages. local extracts explicit date mentions only; server uses the configured paid model for structured extraction, with exact-quote validation. Does not persist the timeline.',('aidlex:read',),external=True),
@@ -42,7 +42,22 @@ def visible_tools(settings):
     return [t for t in TOOLS if settings.auth_mode!='public' or t.public]
 
 def descriptor(tool,settings):
-    out={'name':tool.name,'description':tool.description,'inputSchema':tool.model.model_json_schema(),
+    input_schema=tool.model.model_json_schema()
+
+    if tool.name=='rag_search' and settings.auth_mode=='public':
+        properties=input_schema.get('properties',{})
+        input_schema={
+            'type':'object',
+            'additionalProperties':False,
+            'properties':{
+                key:properties[key]
+                for key in ('query','jurisdiction','topK')
+                if key in properties
+            },
+            'required':['query']
+        }
+
+    out={'name':tool.name,'description':tool.description,'inputSchema':input_schema,
          'outputSchema':schema('McpToolResult.schema'),
          'annotations':{'title':tool.name.replace('_',' ').title(),'readOnlyHint':not tool.write,'destructiveHint':tool.destructive,'idempotentHint':tool.idempotent,'openWorldHint':tool.external}}
     if tool.public:
